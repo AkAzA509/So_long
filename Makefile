@@ -6,7 +6,7 @@
 #    By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 11:51:29 by ggirault          #+#    #+#              #
-#    Updated: 2025/01/28 13:45:13 by ggirault         ###   ########.fr        #
+#    Updated: 2025/01/30 19:00:35 by ggirault         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,18 +14,24 @@ CC = cc
 
 NAME = so_long
 
-CFLAGS = -Wall -Wextra -g -L./minilibx-linux -lmlx_Linux -lm -lX11 -lXext -lbsd #-fsanitize=address
+CFLAGS = -Wall -Wextra -g -Wno-unused-result #-fsanitize=address
 
-OBJ_DIR = obj/
+MLX_DIR = mlx
+MLX = $(MLX_DIR)/libmlx.a
 
-OBJBN_DIR = objbn/
-
-SRC = $(shell find . -name "*.c")
-
+SRC = sources/main.c \
+	sources/window/window_manager.c \
+	sources/parsing/parse_map.c \
+	sources/parsing/parse_map_utils.c \
+	sources/parsing/Get_next_line/get_next_line_utils.c \
+	sources/parsing/Get_next_line/get_next_line.c
+	
 SRCBN =
 
+OBJ_DIR = obj/
 OBJ = $(SRC:%.c=$(OBJ_DIR)%.o)
 
+OBJBN_DIR = objbn/
 OBJBN = $(SRCBN:%.c=$(OBJBN_DIR)%.o)
 
 GREEN = \033[0;32m
@@ -41,12 +47,12 @@ all: $(NAME)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^
+$(NAME): $(OBJ) $(MLX_LIB)
+	$(CC) $(CFLAGS) -o $@ $^ -Lmlx -lmlx -lXext -lX11 -lm
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 clean:
 	rm -rf $(OBJ_DIR)
