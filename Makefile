@@ -6,7 +6,7 @@
 #    By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 11:51:29 by ggirault          #+#    #+#              #
-#    Updated: 2025/01/30 19:00:35 by ggirault         ###   ########.fr        #
+#    Updated: 2025/01/31 13:30:17 by ggirault         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,14 @@ CC = cc
 
 NAME = so_long
 
-CFLAGS = -Wall -Wextra -g -Wno-unused-result #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g #-Wno-unused-result #-fsanitize=address
 
 MLX_DIR = mlx
 MLX = $(MLX_DIR)/libmlx.a
 
 SRC = sources/main.c \
 	sources/window/window_manager.c \
+	sources/parsing/configuration_checker.c \
 	sources/parsing/parse_map.c \
 	sources/parsing/parse_map_utils.c \
 	sources/parsing/Get_next_line/get_next_line_utils.c \

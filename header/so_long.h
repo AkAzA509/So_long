@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:50:46 by ggirault          #+#    #+#             */
-/*   Updated: 2025/01/30 19:00:01 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:28:57 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "../mlx/mlx.h"
 # include "../mlx/mlx_int.h"
 # include "get_next_line.h"
+# include <stdbool.h>
 
 typedef struct s_data
 {
@@ -34,11 +35,19 @@ typedef struct s_data
 	int		endian;
 }			t_data;
 
+typedef struct s_game
+{
+	struct t_data		*data;
+}						t_game;
+
 //---------------[ Parsing ]---------------------//
 
 void		open_map(char *av[], int ac);
 int			pre_parsing(int fd);
-
+char		*get_next_line(int fd);
+char		**remove_endline(char *map_tab[]);
+int			tab_len(char *tab[]);
+bool		configuration_checker(char *map[]);
 
 //---------------[ Gestions fenetre ]------------//
 

@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:59:24 by ggirault          #+#    #+#             */
-/*   Updated: 2025/01/30 18:57:38 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:22:38 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ int	main(int ac, char *av[])
 	//t_data	img;
 
 	open_map(av, ac);
-	/* init_window(&img);
+	/* if (av || ac)
+		printf("test");
+	init_window(&img);
 
 	mlx_key_hook(img.win, key_hook, &img);
 	mlx_mouse_hook(img.win, mouse_hook, &img);

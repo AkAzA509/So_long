@@ -6,11 +6,42 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:52:16 by ggirault          #+#    #+#             */
-/*   Updated: 2025/01/30 18:59:54 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:19:10 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/so_long.h"
+
+int	tab_len(char *tab[])
+{
+	int	i;
+
+	i = 0;
+	while (tab[i] != NULL)
+		i++;
+	return (i);
+}
+
+char	**remove_endline(char *map_tab[])
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (map_tab[i] != NULL)
+	{
+		while (map_tab[i][j])
+		{
+			if (map_tab[i][j] == '\n')
+				map_tab[i][j] = '\0';
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (map_tab);
+}
 
 int	pre_parsing(int fd)
 {
@@ -26,6 +57,7 @@ int	pre_parsing(int fd)
 		free(line);
 		i++;
 	}
+	close(fd);
 	return (i);
 }
 

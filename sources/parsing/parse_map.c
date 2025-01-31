@@ -6,46 +6,52 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:13:52 by ggirault          #+#    #+#             */
-/*   Updated: 2025/01/30 19:36:27 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:31:52 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/so_long.h"
 
-static void	read_map(int fd)
+static bool	format_checker(char **map_tab)
 {
-	char **map_line;
+	if (ft_strlen(map_tab[0]) == tab_len(map_tab))
+		return (false);
+	return (true);
+}
+
+static char	**read_map(int fd, char *file)
+{
+	char	**map_tab;
 	char *line;
 	int	i;
 
-	i = pre_parsing(fd);	
-	map_line = malloc((sizeof(char *) * i) + 1);
-	if (!map_line)
+	i = pre_parsing(fd);
+	fd = open(file, O_RDONLY);
+	map_tab = malloc(sizeof(char *) *(i + 1));
+	if (!map_tab || fd < 0)
 	{
-		perror("Error : malloc have been failed");
+		perror("Error :");
 		exit(1);
 	}
 	i = 0;
 	while (1)
 	{
 		line = get_next_line(fd);
-		printf("line = %s\n", line);
 		if (line == NULL)
 			break;
-		map_line[i] = line;
-		free(line);
+		map_tab[i] = line;
 		i++;
 	}
+	map_tab[i]= NULL;
 	close(fd);
-	map_line[i] = NULL;
-	for(int j = 0; map_line[j] != NULL; j++)
-		printf("map = %s\n", map_line[j]);
-	free_split(map_line);
+	map_tab = remove_endline(map_tab);
+	return (map_tab);
 }
 
 void	open_map(char *av[], int ac)
 {
 	int	fd;
+	char	**map_tab;
 	
 	if (ac != 2)
 	{
@@ -53,12 +59,16 @@ void	open_map(char *av[], int ac)
 		exit(1);
 	}
 	fd = open(av[1], O_RDONLY);
-	printf("fd = %d\n", fd);
 	if (fd < 0)
 	{
-		perror("Error : open file have been failed");
+		perror("Error :");
 		exit(1);
 	}
-	read_map(fd);
-	
+	map_tab = read_map(fd, av[1]);
+	if (!format_checker(map_tab) || !configuration_checker(map_tab))
+	{
+		write(2, "Error\n", 6);
+		write(2, "the map is not rectangular or well construct", 45);
+		free_split(map_tab);
+	}
 }
