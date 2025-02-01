@@ -6,21 +6,21 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:59:24 by ggirault          #+#    #+#             */
-/*   Updated: 2025/01/31 11:22:38 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:57:38 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/so_long.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_game *game, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = game->data->addr + (y * game->data->line_length + x * (game->data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
 
-void	draw_carrer(t_data *data, int x, int y, int size, int color)
+void	draw_carrer(t_game *game, int x, int y, int size, int color)
 {
 	int	i;
 	int	j;
@@ -31,14 +31,14 @@ void	draw_carrer(t_data *data, int x, int y, int size, int color)
 		j = 0;
 		while (j < size)
 		{
-			my_mlx_pixel_put(data, x + j, y + i, color);
+			my_mlx_pixel_put(game, x + j, y + i, color);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	draw_rectangle(t_data *data, int x, int y, int sizex, int sizey, int color)
+void	draw_rectangle(t_game *game, int x, int y, int sizex, int sizey, int color)
 {
 	int	i;
 	int	j;
@@ -49,28 +49,18 @@ void	draw_rectangle(t_data *data, int x, int y, int sizex, int sizey, int color)
 		j= 0;
 		while(j < sizex)
 		{
-			my_mlx_pixel_put(data, x + j, y + i, color);
+			my_mlx_pixel_put(game, x + j, y + i, color);
 			j++;
 		}
 		i++;
 	}
 }
 
-int	close_window(t_data *data)
-{
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_image(data->mlx, data->img);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	exit(0);
-	return (0);
-}
-
-int	key_hook(int keycode, t_data *data)
+int	key_hook(int keycode, t_game *game)
 {
 	printf("%d\n", keycode);
 	if (keycode == 65307)
-		close_window(data);
+		close_window(game);
 	return (0);
 }
 
@@ -86,30 +76,37 @@ unsigned int	color_generator(void)
 	return (color);
 }
 
-int	mouse_hook(int mouse, int x, int y, t_data *img)
+int	mouse_hook(int mouse, int x, int y, t_game *game)
 {
 	if (mouse == 1)
 	{
-		draw_carrer(img, x, y, 100, color_generator());
-		mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
+		draw_carrer(game, x, y, 90, color_generator());
+		mlx_put_image_to_window(game->window->mlx, game->window->win, game->data->img, 0, 0);
 	}
 	return (0);
 }
 
 int	main(int ac, char *av[])
 {
-	//t_data	img;
+	t_game	*so_long;
 
 	open_map(av, ac);
-	/* if (av || ac)
-		printf("test");
-	init_window(&img);
-
-	mlx_key_hook(img.win, key_hook, &img);
-	mlx_mouse_hook(img.win, mouse_hook, &img);
-
-	mlx_hook(img.win, DestroyNotify, StructureNotifyMask, close_window, &img);
 	
-	mlx_loop(img.mlx); */
+	so_long = malloc(sizeof(t_game));
+	so_long->window = malloc(sizeof(t_window));
+	so_long->data = malloc(sizeof(t_data));
+	init_window(&so_long->data);
+	// char *path = "./texture/cave_-_resources_.xpm";
+	// int	width = 192;
+	// int	height = 160;
+	// void	*imgs;
+
+	mlx_mouse_hook(so_long->window->win, mouse_hook, so_long->data->img);
+	// imgs = mlx_xpm_file_to_image(img.mlx, path, &width, &height);
+	// mlx_put_image_to_window(img.mlx, img.win, imgs, 100, 100);
+	mlx_key_hook(so_long->window->win, key_hook, so_long->data->img);
+	mlx_hook(so_long->window->win, DestroyNotify, StructureNotifyMask, close_window, so_long->data->img);
+
+	mlx_loop(so_long->window->mlx);
 	return (0);
 }

@@ -6,11 +6,36 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:52:16 by ggirault          #+#    #+#             */
-/*   Updated: 2025/01/31 12:19:10 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:36:59 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/so_long.h"
+
+void	find_coordonate(t_coor **coor, char *map[])
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (map[i] != NULL)
+	{
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == 'P')
+			{
+				(*coor)->p_x_pos = i;
+				(*coor)->p_y_pos = j;
+				(*coor)->x = i;
+				(*coor)->y = j;
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
 
 int	tab_len(char *tab[])
 {
@@ -45,15 +70,15 @@ char	**remove_endline(char *map_tab[])
 
 int	pre_parsing(int fd)
 {
-	int	i;
-	char *line;
-	
+	int		i;
+	char	*line;
+
 	i = 0;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
-			break;
+			break ;
 		free(line);
 		i++;
 	}
