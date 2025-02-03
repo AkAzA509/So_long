@@ -6,13 +6,13 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:59:24 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/01 14:57:38 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/03 12:09:16 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/so_long.h"
 
-void	my_mlx_pixel_put(t_game *game, int x, int y, int color)
+/* void	my_mlx_pixel_put(t_game *game, int x, int y, int color)
 {
 	char	*dst;
 
@@ -54,7 +54,7 @@ void	draw_rectangle(t_game *game, int x, int y, int sizex, int sizey, int color)
 		}
 		i++;
 	}
-}
+} */
 
 int	key_hook(int keycode, t_game *game)
 {
@@ -64,7 +64,7 @@ int	key_hook(int keycode, t_game *game)
 	return (0);
 }
 
-unsigned int	color_generator(void)
+/* unsigned int	color_generator(void)
 {
 	srand(time(NULL));
 
@@ -74,39 +74,29 @@ unsigned int	color_generator(void)
 
     unsigned int color = (red << 16) | (green << 8) | blue;
 	return (color);
-}
+} */
 
-int	mouse_hook(int mouse, int x, int y, t_game *game)
+void	ft_free(t_game **game)
 {
-	if (mouse == 1)
-	{
-		draw_carrer(game, x, y, 90, color_generator());
-		mlx_put_image_to_window(game->window->mlx, game->window->win, game->data->img, 0, 0);
-	}
-	return (0);
+	if (!game)
+		return ;
+	free((*game)->window);
+	free((*game)->data);
+	//free((*game)->coor);
+	free((*game)->texture);
+	free((*game));
 }
 
 int	main(int ac, char *av[])
 {
 	t_game	*so_long;
-
-	open_map(av, ac);
 	
-	so_long = malloc(sizeof(t_game));
-	so_long->window = malloc(sizeof(t_window));
-	so_long->data = malloc(sizeof(t_data));
-	init_window(&so_long->data);
-	// char *path = "./texture/cave_-_resources_.xpm";
-	// int	width = 192;
-	// int	height = 160;
-	// void	*imgs;
-
-	mlx_mouse_hook(so_long->window->win, mouse_hook, so_long->data->img);
-	// imgs = mlx_xpm_file_to_image(img.mlx, path, &width, &height);
-	// mlx_put_image_to_window(img.mlx, img.win, imgs, 100, 100);
-	mlx_key_hook(so_long->window->win, key_hook, so_long->data->img);
-	mlx_hook(so_long->window->win, DestroyNotify, StructureNotifyMask, close_window, so_long->data->img);
-
+	so_long = NULL;
+	open_map(av, ac, &so_long);
+	init_window(so_long);
+	rendering(so_long);
+	
+	mlx_hook(so_long->window->win, DestroyNotify, StructureNotifyMask, close_window, so_long);
 	mlx_loop(so_long->window->mlx);
 	return (0);
 }

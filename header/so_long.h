@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:50:46 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/01 14:51:05 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/03 12:08:48 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,17 @@
 # include "../mlx/mlx_int.h"
 # include "get_next_line.h"
 # include <stdbool.h>
+
+typedef struct s_texture
+{
+	void	*est_wall_text;
+	void	*west_wall_text;
+	void	*wall_text;
+	void	*floor_text;
+	void	*player_text;
+	void	*objs_text;
+	void	*exit_text;
+}			t_texture;
 
 typedef struct t_coor
 {
@@ -49,14 +60,19 @@ typedef struct s_window
 
 typedef struct s_game
 {
+	char				**map;
+	int					width;
+	int					height;
+	int					tile_size;
 	struct s_data		*data;
 	struct s_coor		*coor;
 	struct s_window		*window;
+	struct s_texture	*texture;
 }						t_game;
 
 //---------------[ Parsing ]---------------------//
 
-void		open_map(char *av[], int ac);
+void		open_map(char *av[], int ac, t_game **game);
 int			pre_parsing(int fd);
 char		*get_next_line(int fd);
 char		**remove_endline(char *map_tab[]);
@@ -68,9 +84,12 @@ void		find_coordonate(t_coor **coor, char *map[]);
 
 void		init_window(t_game *game);
 int			close_window(t_game *game);
+void		struct_alloc(t_game **game);
+void		rendering(t_game *game);
 
 //------------------[ Cleanup ]------------------//
 
 void		free_split(char **tab);
+void		ft_free(t_game **game);
 
 #endif

@@ -6,16 +6,31 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:13:52 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/01 12:07:41 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/03 10:16:06 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/so_long.h"
 
-static bool	format_checker(char **map_tab)
+void	struct_alloc(t_game **game)
+{
+	(*game) = malloc(sizeof(t_game));
+	(*game)->window = malloc(sizeof(t_window));
+	(*game)->data = malloc(sizeof(t_data));
+	(*game)->texture = malloc(sizeof(t_texture));
+	if(!(*game) || !(*game)->window || !(*game)->data || !(*game)->texture)
+	{
+		ft_free(game);
+		exit(1);
+	}
+}
+
+static bool	format_checker(char **map_tab, t_game **game)
 {
 	if (ft_strlen(map_tab[0]) == tab_len(map_tab))
 		return (false);
+	(*game)->width = ft_strlen(map_tab[0]);
+	(*game)->height = tab_len(map_tab);
 	return (true);
 }
 
@@ -48,7 +63,7 @@ static char	**read_map(int fd, char *file)
 	return (map_tab);
 }
 
-void	open_map(char *av[], int ac)
+void	open_map(char *av[], int ac, t_game **game)
 {
 	int		fd;
 	char	**map_tab;
@@ -66,10 +81,13 @@ void	open_map(char *av[], int ac)
 		exit(1);
 	}
 	map_tab = read_map(fd, av[1]);
-	if (!format_checker(map_tab) || !configuration_checker(map_tab))
+	struct_alloc(game);
+	if (!format_checker(map_tab, game) || !configuration_checker(map_tab))
 	{
 		write(2, "Error\nThe map doesn't match, please check it!\n", 46);
 		free_split(map_tab);
+		ft_free(game);
 		exit(1);
 	}
+	(*game)->map = map_tab;
 }
