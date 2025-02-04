@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:50:46 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/03 12:08:48 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:24:13 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "get_next_line.h"
 # include <stdbool.h>
 
-typedef struct s_texture
+/* typedef struct s_texture
 {
 	void	*est_wall_text;
 	void	*west_wall_text;
@@ -33,7 +33,7 @@ typedef struct s_texture
 	void	*player_text;
 	void	*objs_text;
 	void	*exit_text;
-}			t_texture;
+}			t_texture; */
 
 typedef struct t_coor
 {
@@ -67,7 +67,15 @@ typedef struct s_game
 	struct s_data		*data;
 	struct s_coor		*coor;
 	struct s_window		*window;
-	struct s_texture	*texture;
+	struct s_data		*est_wall_text;
+	struct s_data		*west_wall_text;
+	struct s_data		*wall_text;
+	struct s_data		*floor_text;
+	struct s_data		*player_text;
+	struct s_data		*objs_text;
+	struct s_data		*exit_text;
+	struct s_data		*sakura;
+	struct s_data		*pine;
 }						t_game;
 
 //---------------[ Parsing ]---------------------//

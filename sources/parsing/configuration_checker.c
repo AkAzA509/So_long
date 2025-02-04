@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:27:25 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/03 10:22:18 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/04 08:34:52 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ bool	configuration_checker(char *map[])
 	if (!map || !coor)
 	{
 		free(map_count);
-		//free(coor);
+		// free(coor);
 		perror("Error :");
 		exit(1);
 	}
@@ -125,7 +125,7 @@ bool	configuration_checker(char *map[])
 		|| !flood_fill(coor->p_x_pos, coor->p_y_pos, 'P', map))
 	{
 		free(map_count);
-		//free(coor);
+		// free(coor);
 		return (false);
 	}
 	free(map_count);

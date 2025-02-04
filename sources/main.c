@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:59:24 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/03 12:09:16 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:31:24 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,13 @@ void	ft_free(t_game **game)
 	free((*game)->window);
 	free((*game)->data);
 	//free((*game)->coor);
-	free((*game)->texture);
+	free((*game)->est_wall_text);
+	free((*game)->west_wall_text);
+	free((*game)->wall_text);
+	free((*game)->floor_text);
+	free((*game)->player_text);
+	free((*game)->objs_text);
+	free((*game)->exit_text);
 	free((*game));
 }
 

@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:13:52 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/03 10:16:06 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:26:14 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,16 @@ void	struct_alloc(t_game **game)
 	(*game) = malloc(sizeof(t_game));
 	(*game)->window = malloc(sizeof(t_window));
 	(*game)->data = malloc(sizeof(t_data));
-	(*game)->texture = malloc(sizeof(t_texture));
-	if(!(*game) || !(*game)->window || !(*game)->data || !(*game)->texture)
+	(*game)->est_wall_text = malloc(sizeof(t_data));
+	(*game)->west_wall_text = malloc(sizeof(t_data));
+	(*game)->wall_text = malloc(sizeof(t_data));
+	(*game)->floor_text = malloc(sizeof(t_data));
+	(*game)->player_text = malloc(sizeof(t_data));
+	(*game)->objs_text = malloc(sizeof(t_data));
+	(*game)->exit_text = malloc(sizeof(t_data));
+	(*game)->sakura = malloc(sizeof(t_data));
+	(*game)->pine = malloc(sizeof(t_data));
+	if(!(*game) || !(*game)->window || !(*game)->data)
 	{
 		ft_free(game);
 		exit(1);
