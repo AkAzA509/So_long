@@ -6,13 +6,13 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:52:16 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/01 14:36:59 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:48:56 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/so_long.h"
 
-void	find_coordonate(t_coor **coor, char *map[])
+void	find_coordonate(t_game **game, char *map[])
 {
 	int	i;
 	int	j;
@@ -25,10 +25,10 @@ void	find_coordonate(t_coor **coor, char *map[])
 		{
 			if (map[i][j] == 'P')
 			{
-				(*coor)->p_x_pos = i;
-				(*coor)->p_y_pos = j;
-				(*coor)->x = i;
-				(*coor)->y = j;
+				(*game)->coor->p_x_pos = i;
+				(*game)->coor->p_y_pos = j;
+				(*game)->coor->x = i;
+				(*game)->coor->y = j;
 			}
 			j++;
 		}

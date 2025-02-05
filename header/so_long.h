@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:50:46 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/04 14:24:13 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:26:51 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 	void	*exit_text;
 }			t_texture; */
 
-typedef struct t_coor
+typedef struct s_coor
 {
 	int		p_x_pos;
 	int		p_y_pos;
@@ -66,9 +66,7 @@ typedef struct s_game
 	int					tile_size;
 	struct s_data		*data;
 	struct s_coor		*coor;
-	struct s_window		*window;
-	struct s_data		*est_wall_text;
-	struct s_data		*west_wall_text;
+	struct s_window		*window;;
 	struct s_data		*wall_text;
 	struct s_data		*floor_text;
 	struct s_data		*player_text;
@@ -85,15 +83,23 @@ int			pre_parsing(int fd);
 char		*get_next_line(int fd);
 char		**remove_endline(char *map_tab[]);
 int			tab_len(char *tab[]);
-bool		configuration_checker(char *map[]);
-void		find_coordonate(t_coor **coor, char *map[]);
+bool		configuration_checker(char *map[], t_game **game);
+void		find_coordonate(t_game **game, char *map[]);
 
 //---------------[ Gestions fenetre ]------------//
 
 void		init_window(t_game *game);
 int			close_window(t_game *game);
 void		struct_alloc(t_game **game);
-void		rendering(t_game *game);
+int			rendering(void *param);
+void		load_texture(t_game **game);
+
+//--------------------[ Move ]--------------------//
+
+void		move_up(t_game **game);
+void		move_down(t_game **game);
+void		move_left(t_game **game);
+void		move_right(t_game **game);
 
 //------------------[ Cleanup ]------------------//
 

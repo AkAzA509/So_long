@@ -6,7 +6,7 @@
 #    By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 11:51:29 by ggirault          #+#    #+#              #
-#    Updated: 2025/02/03 12:10:33 by ggirault         ###   ########.fr        #
+#    Updated: 2025/02/05 14:29:52 by ggirault         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ MLX_DIR = mlx
 MLX = $(MLX_DIR)/libmlx.a
 
 SRC = sources/main.c \
+	sources/move/move.c \
 	sources/window/rendering.c \
 	sources/window/window_manager.c \
 	sources/parsing/configuration_checker.c \

@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:13:52 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/04 14:26:14 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:44:36 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 void	struct_alloc(t_game **game)
 {
 	(*game) = malloc(sizeof(t_game));
+	(*game)->coor = malloc(sizeof(t_coor));
 	(*game)->window = malloc(sizeof(t_window));
 	(*game)->data = malloc(sizeof(t_data));
-	(*game)->est_wall_text = malloc(sizeof(t_data));
-	(*game)->west_wall_text = malloc(sizeof(t_data));
 	(*game)->wall_text = malloc(sizeof(t_data));
 	(*game)->floor_text = malloc(sizeof(t_data));
 	(*game)->player_text = malloc(sizeof(t_data));
@@ -26,7 +25,9 @@ void	struct_alloc(t_game **game)
 	(*game)->exit_text = malloc(sizeof(t_data));
 	(*game)->sakura = malloc(sizeof(t_data));
 	(*game)->pine = malloc(sizeof(t_data));
-	if(!(*game) || !(*game)->window || !(*game)->data)
+	if (!(*game) || !(*game)->window || !(*game)->data || !(*game)->wall_text
+		|| !(*game)->floor_text || !(*game)->player_text || !(*game)->objs_text
+		|| !(*game)->exit_text || !(*game)->sakura || !(*game)->pine)
 	{
 		ft_free(game);
 		exit(1);
@@ -90,7 +91,7 @@ void	open_map(char *av[], int ac, t_game **game)
 	}
 	map_tab = read_map(fd, av[1]);
 	struct_alloc(game);
-	if (!format_checker(map_tab, game) || !configuration_checker(map_tab))
+	if (!format_checker(map_tab, game) || !configuration_checker(map_tab, game))
 	{
 		write(2, "Error\nThe map doesn't match, please check it!\n", 46);
 		free_split(map_tab);

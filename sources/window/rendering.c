@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:49:39 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/04 15:09:23 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:26:22 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	resize_texture(t_data **texture, int width, t_game *game)
 	(*texture)->img = new;
 }
 
-static void	load_texture(t_game **game)
+void	load_texture(t_game **game)
 {
 	int	width;
 	int	height;
@@ -63,17 +63,11 @@ static void	load_texture(t_game **game)
 	(*game)->floor_text->img = mlx_xpm_file_to_image((*game)->window->mlx,
 			"texture/floor.xpm", &width, &height);
 	resize_texture(&(*game)->floor_text, width, *game);
-	(*game)->est_wall_text->img = mlx_xpm_file_to_image((*game)->window->mlx,
-			"texture/est_wall.xpm", &width, &height);
-	resize_texture(&(*game)->est_wall_text, width, *game);
-	(*game)->west_wall_text->img = mlx_xpm_file_to_image((*game)->window->mlx,
-			"texture/west_wall.xpm", &width, &height);
-	resize_texture(&(*game)->west_wall_text, width, *game);
 	(*game)->wall_text->img = mlx_xpm_file_to_image((*game)->window->mlx,
 			"texture/wall_top_floor.xpm", &width, &height);
 	resize_texture(&(*game)->wall_text, width, *game);
 	(*game)->player_text->img = mlx_xpm_file_to_image((*game)->window->mlx,
-			"texture/patrick.xpm", &width, &height);
+			"texture/player.xpm", &width, &height);
 	resize_texture(&(*game)->player_text, width, *game);
 	(*game)->sakura->img = mlx_xpm_file_to_image((*game)->window->mlx,
 			"texture/sakura_tree.xpm", &width, &height);
@@ -81,8 +75,7 @@ static void	load_texture(t_game **game)
 	(*game)->pine->img = mlx_xpm_file_to_image((*game)->window->mlx,
 			"texture/pine_tree.xpm", &width, &height);
 	resize_texture(&(*game)->pine, width, *game);
-	if (!(*game)->floor_text || !(*game)->est_wall_text
-		|| !(*game)->west_wall_text || !(*game)->wall_text)
+	if (!(*game)->floor_text || !(*game)->wall_text)
 	{
 		perror("Error ");
 		exit(1);
@@ -96,34 +89,32 @@ void	render_wall(t_game *game, int i, int j)
 
 	x = j * game->tile_size;
 	y = i * game->tile_size;
-	printf("i = %d, j = %d\n", i, j);
-	if (i >= 1 && i < (tab_len(game->map) - 1) && j == (ft_strlen(game->map[i]) - 1))
-	{
-		printf("test est\n");
-		mlx_put_image_to_window(game->window->mlx, game->window->win, game->est_wall_text->img, x, y);
-	}
-	else if (i >= 1 && i < (tab_len(game->map) - 1) && j == 0)
-	{
-		printf("test west\n");
-		mlx_put_image_to_window(game->window->mlx, game->window->win, game->west_wall_text->img, x, y);
-	}
+	if (i == 0 || i == (tab_len(game->map) - 1))
+		mlx_put_image_to_window(game->window->mlx, game->window->win,
+			game->wall_text->img, x, y);
 	else
 	{
-		printf("test wall\n");
-		mlx_put_image_to_window(game->window->mlx, game->window->win, game->wall_text->img, x, y);
+		if (((x * 123 + y * 456 + 9876) / 17) % 2 == 0)
+			mlx_put_image_to_window(game->window->mlx, game->window->win,
+				game->sakura->img, x, y);
+		else
+			mlx_put_image_to_window(game->window->mlx, game->window->win,
+				game->pine->img, x, y);
 	}
 }
 
-void	rendering(t_game *game)
+int	rendering(void *param)
 {
+	t_game	*game;
+
+	game = (t_game *)param;
 	int	i;
 	int	j;
 	int	x;
 	int	y;
-
+	
 	i = 0;
-	j = 0;
-	load_texture(&game);
+	mlx_clear_window(game->window->mlx, game->window->win);
 	while (game->map[i] != NULL)
 	{
 		j = 0;
@@ -133,16 +124,15 @@ void	rendering(t_game *game)
 			y = i * game->tile_size;
 			if (game->map[i][j] == '1')
 				render_wall(game, i, j);
-			else if (game->map[i][j] == '0' || game->map[i][j] == 'P')
+			else if (game->map[i][j] == '0' || game->map[i][j] == 'F')
 				mlx_put_image_to_window(game->window->mlx, game->window->win,
 					game->floor_text->img, x, y);
-			else if (game->map[i][j] == 'F')
-			{
-				mlx_put_image_to_window(game->window->mlx, game->window->win, game->floor_text->img, x, y);
-				mlx_put_image_to_window(game->window->mlx, game->window->win, game->sakura->img, x, y);
-			}
+			else if (game->map[i][j] == 'P')
+				mlx_put_image_to_window(game->window->mlx, game->window->win,
+					game->player_text->img, x, y);
 			j++;
 		}
 		i++;
 	}
+	return (0);
 }

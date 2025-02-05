@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:27:25 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/04 08:34:52 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:52:21 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,12 @@ static bool	check_border(char *map[])
 	return (true);
 }
 
-bool	configuration_checker(char *map[])
+bool	configuration_checker(char *map[], t_game **game)
 {
 	t_map_count	*map_count;
-	t_coor		*coor;
 
 	map_count = malloc(sizeof(t_map_count));
-	coor = malloc(sizeof(t_coor));
-	if (!map || !coor)
+	if (!map)
 	{
 		free(map_count);
 		// free(coor);
@@ -120,9 +118,9 @@ bool	configuration_checker(char *map[])
 	map_count->c_count = 0;
 	map_count->e_count = 0;
 	map_count->p_count = 0;
-	find_coordonate(&coor, map);
+	find_coordonate(game, map);
 	if (!check_border(map) || !check_pec(map, map_count)
-		|| !flood_fill(coor->p_x_pos, coor->p_y_pos, 'P', map))
+		|| !flood_fill((*game)->coor->p_x_pos, (*game)->coor->p_y_pos, 'P', map))
 	{
 		free(map_count);
 		// free(coor);
