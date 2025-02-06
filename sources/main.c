@@ -6,15 +6,22 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:59:24 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/05 16:37:14 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:45:01 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/so_long.h"
 
+
+
 int	key_hook(int keycode, t_game *game)
 {
-	printf("%d\n", keycode);
+	char	*move_count;
+
+	move_count = ft_itoa(game->count_move += 1);
+	write (1, move_count, ft_strlen((const char *)move_count));
+	write(1, "\n", 1);
+	free(move_count);
 	if (keycode == 65307)
 		close_window(game);
 	if (keycode == 119 || keycode == 65362)

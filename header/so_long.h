@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:50:46 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/05 15:26:51 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:40:03 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_game
 	int					width;
 	int					height;
 	int					tile_size;
+	int					count_move;
 	struct s_data		*data;
 	struct s_coor		*coor;
 	struct s_window		*window;;
@@ -93,6 +94,7 @@ int			close_window(t_game *game);
 void		struct_alloc(t_game **game);
 int			rendering(void *param);
 void		load_texture(t_game **game);
+char		*ft_itoa(int n);
 
 //--------------------[ Move ]--------------------//
 
