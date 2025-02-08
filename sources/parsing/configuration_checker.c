@@ -6,18 +6,11 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:27:25 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/05 14:52:21 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:06:28 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/so_long.h"
-
-typedef struct s_map_count
-{
-	int		c_count;
-	int		p_count;
-	int		e_count;
-}			t_map_count;
 
 static bool	flood_fill(int pos_x, int pos_y, char target, char *map[])
 {
@@ -111,7 +104,6 @@ bool	configuration_checker(char *map[], t_game **game)
 	if (!map)
 	{
 		free(map_count);
-		// free(coor);
 		perror("Error :");
 		exit(1);
 	}
@@ -120,10 +112,10 @@ bool	configuration_checker(char *map[], t_game **game)
 	map_count->p_count = 0;
 	find_coordonate(game, map);
 	if (!check_border(map) || !check_pec(map, map_count)
-		|| !flood_fill((*game)->coor->p_x_pos, (*game)->coor->p_y_pos, 'P', map))
+		|| !flood_fill((*game)->coor->p_x_pos, (*game)->coor->p_y_pos, 'P',
+			map))
 	{
 		free(map_count);
-		// free(coor);
 		return (false);
 	}
 	free(map_count);

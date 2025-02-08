@@ -1,0 +1,5 @@
+*.o
+mlx/
+hook_a_savoir
+so_long
+.vscode

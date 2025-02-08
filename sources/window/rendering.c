@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:49:39 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/05 15:26:22 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/08 13:52:00 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	rewrite_pixel(t_game *game, int width, int *new_data, int *data)
 	return (0);
 }
 
-static void	resize_texture(t_data **texture, int width, t_game *game)
+void	resize_texture(t_data **texture, int width, t_game *game)
 {
 	void	*new;
 	int		*data;
@@ -51,35 +51,7 @@ static void	resize_texture(t_data **texture, int width, t_game *game)
 	rewrite_pixel(game, width, new_data, data);
 	mlx_destroy_image(game->window->mlx, (*texture)->img);
 	(*texture)->img = new;
-}
-
-void	load_texture(t_game **game)
-{
-	int	width;
-	int	height;
-
-	width = 0;
-	height = 0;
-	(*game)->floor_text->img = mlx_xpm_file_to_image((*game)->window->mlx,
-			"texture/floor.xpm", &width, &height);
-	resize_texture(&(*game)->floor_text, width, *game);
-	(*game)->wall_text->img = mlx_xpm_file_to_image((*game)->window->mlx,
-			"texture/wall_top_floor.xpm", &width, &height);
-	resize_texture(&(*game)->wall_text, width, *game);
-	(*game)->player_text->img = mlx_xpm_file_to_image((*game)->window->mlx,
-			"texture/player.xpm", &width, &height);
-	resize_texture(&(*game)->player_text, width, *game);
-	(*game)->sakura->img = mlx_xpm_file_to_image((*game)->window->mlx,
-			"texture/sakura_tree.xpm", &width, &height);
-	resize_texture(&(*game)->sakura, width, *game);
-	(*game)->pine->img = mlx_xpm_file_to_image((*game)->window->mlx,
-			"texture/pine_tree.xpm", &width, &height);
-	resize_texture(&(*game)->pine, width, *game);
-	if (!(*game)->floor_text || !(*game)->wall_text)
-	{
-		perror("Error ");
-		exit(1);
-	}
+	(*texture)->addr = (char *)new_data;
 }
 
 void	render_wall(t_game *game, int i, int j)
@@ -106,15 +78,13 @@ void	render_wall(t_game *game, int i, int j)
 int	rendering(void *param)
 {
 	t_game	*game;
+	int		i;
+	int		j;
+	int		x;
+	int		y;
 
 	game = (t_game *)param;
-	int	i;
-	int	j;
-	int	x;
-	int	y;
-	
 	i = 0;
-	mlx_clear_window(game->window->mlx, game->window->win);
 	while (game->map[i] != NULL)
 	{
 		j = 0;
@@ -130,6 +100,9 @@ int	rendering(void *param)
 			else if (game->map[i][j] == 'P')
 				mlx_put_image_to_window(game->window->mlx, game->window->win,
 					game->player_text->img, x, y);
+			else if (game->map[i][j] == 'E')
+				mlx_put_image_to_window(game->window->mlx, game->window->win,
+					game->exit_text->img, x, y);
 			j++;
 		}
 		i++;

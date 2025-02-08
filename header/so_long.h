@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:50:46 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/06 18:40:03 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/08 13:36:05 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,15 @@
 # include "../mlx/mlx.h"
 # include "../mlx/mlx_int.h"
 # include "get_next_line.h"
+//# include "../bonus/so_long_bonus.h"
 # include <stdbool.h>
 
-/* typedef struct s_texture
+typedef struct s_map_count
 {
-	void	*est_wall_text;
-	void	*west_wall_text;
-	void	*wall_text;
-	void	*floor_text;
-	void	*player_text;
-	void	*objs_text;
-	void	*exit_text;
-}			t_texture; */
+	int		c_count;
+	int		p_count;
+	int		e_count;
+}			t_map_count;
 
 typedef struct s_coor
 {
@@ -75,6 +72,7 @@ typedef struct s_game
 	struct s_data		*exit_text;
 	struct s_data		*sakura;
 	struct s_data		*pine;
+	struct s_anim		*portal_anim;
 }						t_game;
 
 //---------------[ Parsing ]---------------------//
@@ -95,6 +93,7 @@ void		struct_alloc(t_game **game);
 int			rendering(void *param);
 void		load_texture(t_game **game);
 char		*ft_itoa(int n);
+void		resize_texture(t_data **texture, int width, t_game *game);
 
 //--------------------[ Move ]--------------------//
 

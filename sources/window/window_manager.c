@@ -6,18 +6,69 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:48:22 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/04 08:34:22 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/08 13:38:41 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/so_long.h"
+
+static void	load_texture_suite(t_game **game)
+{
+	int	width;
+	int	height;
+
+	width = 0;
+	height = 0;
+	(*game)->pine->img = mlx_xpm_file_to_image((*game)->window->mlx,
+			"texture/pine_tree.xpm", &width, &height);
+	resize_texture(&(*game)->pine, width, *game);
+	// (*game)->objs_text->img = mlx_xpm_file_to_image((*game)->window->mlx,
+	// 		"textur/objs.xpm", &width, &height);
+	// resize_texture(&(*game)->objs_text, width, (*game));
+	(*game)->exit_text->img = mlx_xpm_file_to_image((*game)->window->mlx,
+			"texture/portal1.xpm", &width, &height);
+	resize_texture(&(*game)->exit_text, width, *game);
+	if (!(*game)->pine || !(*game)->objs_text || !(*game)->exit_text)
+	{
+		perror("Error ");
+		exit(1);
+	}
+}
+
+void	load_texture(t_game **game)
+{
+	int	width;
+	int	height;
+
+	width = 0;
+	height = 0;
+	(*game)->floor_text->img = mlx_xpm_file_to_image((*game)->window->mlx,
+			"texture/floor.xpm", &width, &height);
+	resize_texture(&(*game)->floor_text, width, *game);
+	(*game)->wall_text->img = mlx_xpm_file_to_image((*game)->window->mlx,
+			"texture/wall_top_floor.xpm", &width, &height);
+	resize_texture(&(*game)->wall_text, width, *game);
+	(*game)->player_text->img = mlx_xpm_file_to_image((*game)->window->mlx,
+			"texture/player.xpm", &width, &height);
+	resize_texture(&(*game)->player_text, width, *game);
+	(*game)->sakura->img = mlx_xpm_file_to_image((*game)->window->mlx,
+			"texture/sakura_tree.xpm", &width, &height);
+	resize_texture(&(*game)->sakura, width, *game);
+	if (!(*game)->floor_text || !(*game)->wall_text || !(*game)->player_text
+		|| !(*game)->sakura)
+	{
+		perror("Error ");
+		exit(1);
+	}
+	load_texture_suite(game);
+}
 
 int	close_window(t_game *game)
 {
 	mlx_destroy_window(game->window->mlx, game->window->win);
 	mlx_destroy_image(game->window->mlx, game->data->img);
 	mlx_destroy_display(game->window->mlx);
-	free(game->window->mlx);
+	ft_free(&game);
 	exit(0);
 }
 
@@ -32,6 +83,7 @@ void	init_window(t_game *game)
 		game->tile_size = tile_x;
 	else
 		game->tile_size = tile_y;
+	game->count_move = 0;
 	game->window->mlx = mlx_init();
 	if (!game->window->mlx)
 		close_window(game);
