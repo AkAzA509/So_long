@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:49:39 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/08 13:52:00 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:13:07 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,23 @@ void	render_wall(t_game *game, int i, int j)
 	}
 }
 
+ static void	render_suite(t_game *game, int i, int j)
+ {
+	int		x;
+	int		y;
+
+	x = j * game->tile_size;
+	y = i * game->tile_size;
+	if (game->map[i][j] == '0' || game->map[i][j] == 'F')
+		mlx_put_image_to_window(game->window->mlx, game->window->win, game->floor_text->img, x, y);
+	else if (game->map[i][j] == 'P')
+		mlx_put_image_to_window(game->window->mlx, game->window->win, game->player_text->img, x, y);
+	else if (game->map[i][j] == 'E')
+		mlx_put_image_to_window(game->window->mlx, game->window->win, game->exit_text->img, x, y);
+	else if (game->map[i][j] == 'C')
+		mlx_put_image_to_window(game->window->mlx, game->window->win, game->objs_text->img, x, y);
+ }
+
 int	rendering(void *param)
 {
 	t_game	*game;
@@ -94,15 +111,8 @@ int	rendering(void *param)
 			y = i * game->tile_size;
 			if (game->map[i][j] == '1')
 				render_wall(game, i, j);
-			else if (game->map[i][j] == '0' || game->map[i][j] == 'F')
-				mlx_put_image_to_window(game->window->mlx, game->window->win,
-					game->floor_text->img, x, y);
-			else if (game->map[i][j] == 'P')
-				mlx_put_image_to_window(game->window->mlx, game->window->win,
-					game->player_text->img, x, y);
-			else if (game->map[i][j] == 'E')
-				mlx_put_image_to_window(game->window->mlx, game->window->win,
-					game->exit_text->img, x, y);
+			else
+				render_suite(game, i, j);
 			j++;
 		}
 		i++;

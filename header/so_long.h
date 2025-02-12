@@ -6,23 +6,16 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:50:46 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/08 13:36:05 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:21:44 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-////////////////////////////////////
-# include <stdio.h>
-# include <stdlib.h>
-# include <time.h>
-////////////////////////////////////
-
 # include "../mlx/mlx.h"
 # include "../mlx/mlx_int.h"
 # include "get_next_line.h"
-//# include "../bonus/so_long_bonus.h"
 # include <stdbool.h>
 
 typedef struct s_map_count
@@ -72,7 +65,6 @@ typedef struct s_game
 	struct s_data		*exit_text;
 	struct s_data		*sakura;
 	struct s_data		*pine;
-	struct s_anim		*portal_anim;
 }						t_game;
 
 //---------------[ Parsing ]---------------------//
@@ -97,10 +89,10 @@ void		resize_texture(t_data **texture, int width, t_game *game);
 
 //--------------------[ Move ]--------------------//
 
-void		move_up(t_game **game);
-void		move_down(t_game **game);
-void		move_left(t_game **game);
-void		move_right(t_game **game);
+void		move_up(t_game **game, char *move_count);
+void		move_down(t_game **game, char *move_count);
+void		move_left(t_game **game, char *move_count);
+void		move_right(t_game **game, char *move_count);
 
 //------------------[ Cleanup ]------------------//
 

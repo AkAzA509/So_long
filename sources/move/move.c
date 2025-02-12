@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:17:50 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/05 17:17:14 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/11 09:45:36 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	check_collectible(t_game *game)
 	return (true);
 }
 
-void	move_up(t_game **game)
+void	move_up(t_game **game, char *move_count)
 {
 	if ((*game)->map[(*game)->coor->x - 1][(*game)->coor->y] == '1')
 		return ;
@@ -46,7 +46,7 @@ void	move_up(t_game **game)
 		if (check_collectible(*game) == true)
 		{
 			write (1, "Congrats !! You have finish this game !", 40);
-			ft_free(game);
+			close_window(*game);
 			exit(0);
 		}
 		else
@@ -58,9 +58,14 @@ void	move_up(t_game **game)
 		(*game)->map[(*game)->coor->x - 1][(*game)->coor->y] = 'P';
 		(*game)->coor->x -= 1;
 	}
+	(*game)->count_move += 1;
+	move_count = ft_itoa((*game)->count_move);
+	write(1, move_count, ft_strlen((const char *)move_count));
+	write(1, "\n", 1);
+	free(move_count);
 }
 
-void	move_down(t_game **game)
+void	move_down(t_game **game, char *move_count)
 {
 	if ((*game)->map[(*game)->coor->x + 1][(*game)->coor->y] == '1')
 		return ;
@@ -69,7 +74,7 @@ void	move_down(t_game **game)
 		if (check_collectible(*game) == true)
 		{
 			write (1, "Congrats !! You have finish this game !", 40);
-			ft_free(game);
+			close_window(*game);
 			exit(0);
 		}
 		else
@@ -81,9 +86,14 @@ void	move_down(t_game **game)
 		(*game)->map[(*game)->coor->x + 1][(*game)->coor->y] = 'P';
 		(*game)->coor->x += 1;
 	}
+	(*game)->count_move += 1;
+	move_count = ft_itoa((*game)->count_move);
+	write(1, move_count, ft_strlen((const char *)move_count));
+	write(1, "\n", 1);
+	free(move_count);
 }
 
-void	move_left(t_game **game)
+void	move_left(t_game **game, char *move_count)
 {
 	if ((*game)->map[(*game)->coor->x][(*game)->coor->y - 1] == '1')
 		return ;
@@ -92,7 +102,7 @@ void	move_left(t_game **game)
 		if (check_collectible(*game) == true)
 		{
 			write (1, "Congrats !! You have finish this game !", 40);
-			ft_free(game);
+			close_window(*game);
 			exit(0);
 		}
 		else
@@ -104,9 +114,14 @@ void	move_left(t_game **game)
 		(*game)->map[(*game)->coor->x][(*game)->coor->y - 1] = 'P';
 		(*game)->coor->y -= 1;
 	}
+	(*game)->count_move += 1;
+	move_count = ft_itoa((*game)->count_move);
+	write(1, move_count, ft_strlen((const char *)move_count));
+	write(1, "\n", 1);
+	free(move_count);
 }
 
-void	move_right(t_game **game)
+void	move_right(t_game **game, char *move_count)
 {
 	if ((*game)->map[(*game)->coor->x][(*game)->coor->y + 1] == '1')
 		return ;
@@ -115,7 +130,7 @@ void	move_right(t_game **game)
 		if (check_collectible(*game) == true)
 		{
 			write (1, "Congrats !! You have finish this game !", 40);
-			ft_free(game);
+			close_window(*game);
 			exit(0);
 		}
 		else
@@ -127,4 +142,9 @@ void	move_right(t_game **game)
 		(*game)->map[(*game)->coor->x][(*game)->coor->y + 1] = 'P';
 		(*game)->coor->y += 1;
 	}
+	(*game)->count_move += 1;
+	move_count = ft_itoa((*game)->count_move);
+	write(1, move_count, ft_strlen((const char *)move_count));
+	write(1, "\n", 1);
+	free(move_count);
 }

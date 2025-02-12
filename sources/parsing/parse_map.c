@@ -6,11 +6,29 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:13:52 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/05 14:44:36 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/11 09:31:51 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/so_long.h"
+
+static bool	check_extention(char *file)
+{
+	int	i;
+
+	i = 0;
+	while (file[i] != '\0')
+	{
+		if (file[i] == '.')
+		{
+			if (file[i + 1] == 'b' && file[i + 2] == 'e' && file[i + 3] == 'r'
+				&& file[i + 4] == '\0')
+				return (true);
+		}
+		i++;
+	}
+	return (false);
+}
 
 void	struct_alloc(t_game **game)
 {
@@ -77,7 +95,7 @@ void	open_map(char *av[], int ac, t_game **game)
 	int		fd;
 	char	**map_tab;
 
-	if (ac != 2)
+	if (ac != 2 || check_extention(av[1]) == false)
 	{
 		write(2, "Error : invalid argument, please run", 37);
 		write(2, " with ./so_long and only one map.ber\n", 37);
