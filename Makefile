@@ -6,7 +6,7 @@
 #    By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 11:51:29 by ggirault          #+#    #+#              #
-#    Updated: 2025/02/12 14:23:07 by ggirault         ###   ########.fr        #
+#    Updated: 2025/02/12 15:07:50 by ggirault         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRCBN = main_bonus.c \
 	parsing/Get_next_line/get_next_line_utils.c \
 	window/itoa.c \
 	window/rendering.c \
-	window/portal_animation.c
+	window/window_manager.c \
+	window/portal.c
 
 
 OBJ_DIR = obj/

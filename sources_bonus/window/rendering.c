@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:49:39 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/12 15:02:14 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:10:04 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ static void	render_suite(t_game *game, int i, int j)
 		mlx_put_image_to_window(game->window->mlx, game->window->win,
 			game->player_text->img, x, y);
 	else if (game->map[i][j] == 'E')
-		mlx_put_image_to_window(game->window->mlx, game->window->win,
-			game->exit_text->img, x, y);
+		put_portal(game);
 	else if (game->map[i][j] == 'C')
 		mlx_put_image_to_window(game->window->mlx, game->window->win,
 			game->objs_text->img, x, y);
