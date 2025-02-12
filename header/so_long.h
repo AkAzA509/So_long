@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:50:46 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/12 10:21:44 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:31:28 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ void		move_right(t_game **game, char *move_count);
 //------------------[ Cleanup ]------------------//
 
 void		free_split(char **tab);
-void		ft_free(t_game **game);
+void		ft_free(t_game **game,int condition);
 
 #endif

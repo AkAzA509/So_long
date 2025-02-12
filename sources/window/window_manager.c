@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:48:22 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/12 14:18:01 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:45:04 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	close_window(t_game *game)
 	mlx_destroy_window(game->window->mlx, game->window->win);
 	mlx_destroy_image(game->window->mlx, game->data->img);
 	mlx_destroy_display(game->window->mlx);
-	ft_free(&game);
+	ft_free(&game, 1);
 	exit(0);
 }
 

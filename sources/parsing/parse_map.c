@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:13:52 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/11 09:31:51 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:34:02 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	struct_alloc(t_game **game)
 		|| !(*game)->floor_text || !(*game)->player_text || !(*game)->objs_text
 		|| !(*game)->exit_text || !(*game)->sakura || !(*game)->pine)
 	{
-		ft_free(game);
+		ft_free(game, 0);
 		exit(1);
 	}
 }
@@ -113,7 +113,7 @@ void	open_map(char *av[], int ac, t_game **game)
 	{
 		write(2, "Error\nThe map doesn't match, please check it!\n", 46);
 		free_split(map_tab);
-		ft_free(game);
+		ft_free(game, 0);
 		exit(1);
 	}
 	(*game)->map = map_tab;

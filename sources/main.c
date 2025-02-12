@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:59:24 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/11 14:33:26 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:36:47 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,29 @@ int	key_hook(int keycode, t_game *game)
 	return (0);
 }
 
-static void	ft_free_suite(t_game **game)
+static void	ft_free_suite(t_game **game, int condition)
 {
 	if ((*game)->data)
 		free((*game)->data);
-	if ((*game)->window)
+	if (condition == 1)
 	{
-		if ((*game)->window->mlx)
-			free((*game)->window->mlx);
-		free((*game)->window);
+		if ((*game)->window)
+		{
+			if ((*game)->window->mlx)
+				free((*game)->window->mlx);
+		}
 	}
+	free((*game)->window);
 	free(*game);
 	*game = NULL;
 }
 
-void	ft_free(t_game **game)
+void	ft_free(t_game **game, int condition)
 {
 	if (!game || !*game)
 		return ;
-	free_split((*game)->map);
+	if (condition == 1)
+		free_split((*game)->map);
 	free((*game)->coor);
 	if ((*game)->wall_text)
 		free((*game)->wall_text);
@@ -64,7 +68,7 @@ void	ft_free(t_game **game)
 		free((*game)->sakura);
 	if ((*game)->pine)
 		free((*game)->pine);
-	ft_free_suite(game);
+	ft_free_suite(game, condition);
 }
 
 int	main(int ac, char *av[])
