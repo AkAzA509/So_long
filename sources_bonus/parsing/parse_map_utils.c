@@ -6,11 +6,11 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:52:16 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/05 14:48:56 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:08:21 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/so_long.h"
+#include "../../header/so_long_bonus.h"
 
 void	find_coordonate(t_game **game, char *map[])
 {

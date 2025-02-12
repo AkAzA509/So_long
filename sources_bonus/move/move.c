@@ -6,11 +6,11 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 14:17:50 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/11 09:45:36 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:08:37 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/so_long.h"
+#include "../../header/so_long_bonus.h"
 
 bool	check_collectible(t_game *game)
 {

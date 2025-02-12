@@ -6,11 +6,11 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:13:52 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/12 14:34:02 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:58:09 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/so_long.h"
+#include "../../header/so_long_bonus.h"
 
 static bool	check_extention(char *file)
 {
@@ -43,9 +43,11 @@ void	struct_alloc(t_game **game)
 	(*game)->exit_text = malloc(sizeof(t_data));
 	(*game)->sakura = malloc(sizeof(t_data));
 	(*game)->pine = malloc(sizeof(t_data));
+	(*game)->portal = malloc(sizeof(t_anim));
+	(*game)->portal->frame = malloc(sizeof(void *) * 7);
 	if (!(*game) || !(*game)->window || !(*game)->data || !(*game)->wall_text
 		|| !(*game)->floor_text || !(*game)->player_text || !(*game)->objs_text
-		|| !(*game)->exit_text || !(*game)->sakura || !(*game)->pine)
+		|| !(*game)->exit_text || !(*game)->sakura || !(*game)->pine || !(*game)->portal || !(*game)->portal->frame)
 	{
 		ft_free(game, 0);
 		exit(1);

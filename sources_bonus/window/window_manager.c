@@ -6,11 +6,11 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:48:22 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/12 14:45:04 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:07:57 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/so_long.h"
+#include "../../header/so_long_bonus.h"
 
 static void	load_texture_suite(t_game **game)
 {

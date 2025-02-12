@@ -6,11 +6,11 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:27:25 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/07 10:06:28 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:08:26 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/so_long.h"
+#include "../../header/so_long_bonus.h"
 
 static bool	flood_fill(int pos_x, int pos_y, char target, char *map[])
 {

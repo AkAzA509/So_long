@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:49:39 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/12 15:02:14 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:47:16 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ int	rendering(void *param)
 	t_game	*game;
 	int		i;
 	int		j;
-	int		x;
-	int		y;
 
 	game = (t_game *)param;
 	i = 0;
@@ -111,8 +109,6 @@ int	rendering(void *param)
 		j = 0;
 		while (game->map[i][j] != '\0')
 		{
-			x = j * game->tile_size;
-			y = i * game->tile_size;
 			if (game->map[i][j] == '1')
 				render_wall(game, i, j);
 			else

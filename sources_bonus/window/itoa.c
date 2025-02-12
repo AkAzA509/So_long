@@ -6,11 +6,11 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:39:09 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/07 10:06:43 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:08:12 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/so_long.h"
+#include "../../header/so_long_bonus.h"
 
 static int	len_calc(int n)
 {

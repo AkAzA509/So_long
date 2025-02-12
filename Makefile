@@ -6,7 +6,7 @@
 #    By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 11:51:29 by ggirault          #+#    #+#              #
-#    Updated: 2025/02/12 15:07:50 by ggirault         ###   ########.fr        #
+#    Updated: 2025/02/12 18:13:46 by ggirault         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,18 +31,17 @@ SRC = sources/main.c \
 	sources/parsing/Get_next_line/get_next_line_utils.c \
 	sources/parsing/Get_next_line/get_next_line.c
 
-SRCBN = main_bonus.c \
-	move/move.c \
-	parsing/parse_map.c \
-	parsing/configuration_checker.c \
-	parsing/parse_map_utils.c \
-	parsing/Get_next_line/get_next_line.c \
-	parsing/Get_next_line/get_next_line_utils.c \
-	window/itoa.c \
-	window/rendering.c \
-	window/window_manager.c \
-	window/portal.c
-
+SRCBN = sources_bonus/main_bonus.c \
+	sources_bonus/window/rendering.c \
+	sources_bonus/window/itoa.c \
+	sources_bonus/window/window_manager.c \
+	sources_bonus/window/portal.c \
+	sources_bonus/move/move.c \
+	sources_bonus/parsing/configuration_checker.c \
+	sources_bonus/parsing/parse_map.c \
+	sources_bonus/parsing/parse_map_utils.c \
+	sources_bonus/parsing/Get_next_line/get_next_line_utils.c \
+	sources_bonus/parsing/Get_next_line/get_next_line.c
 
 OBJ_DIR = obj/
 OBJ = $(SRC:%.c=$(OBJ_DIR)%.o)

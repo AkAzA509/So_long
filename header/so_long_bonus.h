@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:34:38 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/12 14:58:22 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:19:33 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@
 
 typedef struct s_anim
 {
-	void	*img;
 	void	**frame;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		total_frames;
+	int		current;
+	int		speed;
+	int		timer;
 }			t_anim;
 
 typedef struct s_map_count
@@ -96,7 +99,7 @@ void		struct_alloc(t_game **game);
 int			rendering(void *param);
 void		load_texture(t_game **game);
 char		*ft_itoa(int n);
-void		resize_texture(t_data **texture, int width, t_game *game);
+void		resize_texture(void **text, int width, t_game *game);
 void		render_portal(t_game **game);
 
 //--------------------[ Move ]--------------------//

@@ -6,11 +6,11 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:49:39 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/12 15:10:04 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:20:31 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/so_long.h"
+#include "../../header/so_long_bonus.h"
 
 static int	rewrite_pixel(t_game *game, int width, int *new_data, int *data)
 {
@@ -36,12 +36,14 @@ static int	rewrite_pixel(t_game *game, int width, int *new_data, int *data)
 	return (0);
 }
 
-void	resize_texture(t_data **texture, int width, t_game *game)
+void	resize_texture(void **text, int width, t_game *game)
 {
 	void	*new;
 	int		*data;
 	int		*new_data;
+	t_data	**texture;
 
+	texture = (t_data **)text;	
 	new = mlx_new_image(game->window->mlx, game->tile_size, game->tile_size);
 	data = (int *)mlx_get_data_addr((*texture)->img,
 			&(*texture)->bits_per_pixel, &(*texture)->line_length,
@@ -89,7 +91,8 @@ static void	render_suite(t_game *game, int i, int j)
 		mlx_put_image_to_window(game->window->mlx, game->window->win,
 			game->player_text->img, x, y);
 	else if (game->map[i][j] == 'E')
-		put_portal(game);
+		mlx_put_image_to_window(game->window->mlx, game->window->win,
+			game->exit_text->img, x, y);
 	else if (game->map[i][j] == 'C')
 		mlx_put_image_to_window(game->window->mlx, game->window->win,
 			game->objs_text->img, x, y);
@@ -116,6 +119,12 @@ int	rendering(void *param)
 				render_wall(game, i, j);
 			else
 				render_suite(game, i, j);
+			if (game->portal->timer++ > game->portal->speed)
+			{
+				game->portal->current = (game->portal->current + 1) % game->portal->total_frames;
+				game->portal->timer = 0;
+			}
+			mlx_put_image_to_window(game->window->mlx, game->window->win, game->portal->frame[game->portal->current], x, y);
 			j++;
 		}
 		i++;
