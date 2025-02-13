@@ -6,7 +6,7 @@
 #    By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 11:51:29 by ggirault          #+#    #+#              #
-#    Updated: 2025/02/12 18:13:46 by ggirault         ###   ########.fr        #
+#    Updated: 2025/02/13 12:23:48 by ggirault         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = cc
 NAME = so_long
 NAME_BN = so_long_bonus
 
-CFLAGS = -Wall -Werror -Wextra -g -Wno-unused-result #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 
 MLX_DIR = mlx
 MLX = $(MLX_DIR)/libmlx.a
@@ -80,6 +80,7 @@ minilib:
 	@git clone https://github.com/42Paris/minilibx-linux.git
 	@mv minilibx-linux mlx
 	@cd mlx && ./configure
+	@make
 
 $(OBJBN_DIR):
 	mkdir -p $(OBJBN_DIR)

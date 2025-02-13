@@ -6,11 +6,32 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:59:24 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/12 15:11:45 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/13 12:01:55 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/so_long_bonus.h"
+
+void	print_portal(t_game *game, int i, int j)
+{
+	int		x;
+	int		y;
+	long	current_time;
+
+	if (game->map[i][j] != 'E')
+		return ;
+	x = j * game->tile_size;
+	y = i * game->tile_size;
+	current_time = time_anim();
+	if (current_time - game->portal->update > game->portal->speed)
+	{
+		game->portal->current = (game->portal->current + 1)
+			% game->portal->total_frames;
+		game->portal->update = current_time;
+	}
+	mlx_put_image_to_window(game->window->mlx, game->window->win,
+		game->portal->frame[game->portal->current], x, y);
+}
 
 int	key_hook(int keycode, t_game *game)
 {
@@ -43,18 +64,13 @@ static void	ft_free_suite(t_game **game, int condition)
 				free((*game)->window->mlx);
 		}
 	}
+	free((*game)->portal->frame);
+	free((*game)->portal->addr);
+	if ((*game)->portal)
+		free((*game)->portal);
 	free((*game)->window);
 	free(*game);
 	*game = NULL;
-	if ((*game)->portal)
-	{
-		while ((*game)->portal->frame[i] != NULL)
-		{
-			free((*game)->portal->frame[i]);
-			i++;
-		}
-		free((*game)->portal);
-	}
 }
 
 void	ft_free(t_game **game, int condition)

@@ -6,7 +6,7 @@
 /*   By: ggirault <ggirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:48:22 by ggirault          #+#    #+#             */
-/*   Updated: 2025/02/12 18:07:57 by ggirault         ###   ########.fr       */
+/*   Updated: 2025/02/13 11:55:03 by ggirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,22 @@ void	load_texture(t_game **game)
 	load_texture_suite(game);
 }
 
+static void	close_window_suite(t_game *game)
+{
+	if (game->portal->frame[0])
+		mlx_destroy_image(game->window->mlx, game->portal->frame[0]);
+	if (game->portal->frame[1])
+		mlx_destroy_image(game->window->mlx, game->portal->frame[1]);
+	if (game->portal->frame[2])
+		mlx_destroy_image(game->window->mlx, game->portal->frame[2]);
+	if (game->portal->frame[3])
+		mlx_destroy_image(game->window->mlx, game->portal->frame[3]);
+	if (game->portal->frame[4])
+		mlx_destroy_image(game->window->mlx, game->portal->frame[4]);
+	if (game->portal->frame[5])
+		mlx_destroy_image(game->window->mlx, game->portal->frame[5]);
+}
+
 int	close_window(t_game *game)
 {
 	if (game->wall_text->img)
@@ -79,6 +95,7 @@ int	close_window(t_game *game)
 		mlx_destroy_image(game->window->mlx, game->sakura->img);
 	if (game->pine->img)
 		mlx_destroy_image(game->window->mlx, game->pine->img);
+	close_window_suite(game);
 	mlx_destroy_window(game->window->mlx, game->window->win);
 	mlx_destroy_image(game->window->mlx, game->data->img);
 	mlx_destroy_display(game->window->mlx);
